@@ -36,7 +36,7 @@ public:
             }
             temp->next = bukuBaru;
         }
-        cout << "[SUKSES] Buku '" << judul << "' berhasil ditambahkan!\n";
+        cout << "Buku " << judul << "\n";
     }
 
     void hapusBuku(string isbn) {
@@ -94,7 +94,7 @@ int main() {
     string inputIsbn, inputJudul, inputPenulis;
 
     cout << "====================================\n";
-    cout << "     MEMUAT DATA BUKU BAWAAN...\n";
+    cout << "           KOLEKSI BUKU\n";
     cout << "====================================\n";
     perpus.tambahBuku("978-111", "Struktur Data & Algoritma", "Budi Raharjo");
     perpus.tambahBuku("978-222", "Kalkulus Lanjut", "Koko Martono");
