@@ -19,13 +19,13 @@ public:
         head = nullptr;
     }
 
+    // 1. Menambah buku baru (Insert at Tail)
     void tambahBuku(string isbn, string judul, string penulis) {
         Buku* bukuBaru = new Buku();
         bukuBaru->isbn = isbn;
         bukuBaru->judul = judul;
         bukuBaru->penulis = penulis;
         bukuBaru->next = nullptr;
-\
 
         if (head == nullptr) {
             head = bukuBaru;
@@ -36,12 +36,12 @@ public:
             }
             temp->next = bukuBaru;
         }
-        cout << "[SUKSES] Buku '" << judul << "' berhasil ditambahkan ke koleksi.\n";
+        cout << "[SUKSES] Buku '" << judul << "' berhasil ditambahkan!\n";
     }
 
     void hapusBuku(string isbn) {
         if (head == nullptr) {
-            cout << "[GAGAL] Koleksi buku masih kosong.\n";
+            cout << "[GAGAL] Koleksi buku masih kosong, tidak ada yang bisa dihapus.\n";
             return;
         }
 
@@ -51,7 +51,7 @@ public:
         if (temp != nullptr && temp->isbn == isbn) {
             head = temp->next; 
             delete temp;       
-            cout << "[SUKSES] Buku dengan ISBN " << isbn << " berhasil dihapus.\n";
+            cout << "[SUKSES] Buku dengan ISBN " << isbn << " berhasil dihapus dari sistem.\n";
             return;
         }
 
@@ -67,22 +67,7 @@ public:
 
         prev->next = temp->next;
         delete temp;
-        cout << "[SUKSES] Buku dengan ISBN " << isbn << " berhasil dihapus.\n";
-    }
-
-    void perbaruiBuku(string isbn, string judulBaru, string penulisBaru) {
-        Buku* temp = head;
-
-        while (temp != nullptr) {
-            if (temp->isbn == isbn) {
-                temp->judul = judulBaru;
-                temp->penulis = penulisBaru;
-                cout << "[SUKSES] Data buku dengan ISBN " << isbn << " berhasil diperbarui.\n";
-                return;
-            }
-            temp = temp->next;
-        }
-        cout << "[INFO] Buku dengan ISBN " << isbn << " tidak ditemukan untuk diperbarui.\n";
+        cout << "[SUKSES] Buku dengan ISBN " << isbn << " berhasil dihapus dari sistem.\n";
     }
 
     void tampilkanKoleksi() {
@@ -95,33 +80,75 @@ public:
         cout << "\n=== Daftar Koleksi Buku Perpustakaan ===\n";
         while (temp != nullptr) {
             cout << "ISBN    : " << temp->isbn << "\n"
-                 << "Judul   : " << temp->judul << "\n"
-                 << "Penulis : " << temp->penulis << "\n"
-                 << "-------------------------------------------------\n";
+                << "Judul   : " << temp->judul << "\n"
+                << "Penulis : " << temp->penulis << "\n"
+                << "----------------------------------------\n";
             temp = temp->next;
         }
-        cout << "========================================\n\n";
     }
 };
 
 int main() {
     ManajemenKoleksiBuku perpus;
+    int pilihan;
+    string inputIsbn, inputJudul, inputPenulis;
 
-    cout << "--- SIMULASI MANAJEMEN KOLEKSI BUKU ---\n\n";
+    cout << "====================================\n";
+    cout << "     MEMUAT DATA BUKU BAWAAN...\n";
+    cout << "====================================\n";
+    perpus.tambahBuku("978-111", "Struktur Data & Algoritma", "Budi Raharjo");
+    perpus.tambahBuku("978-222", "Kalkulus Lanjut", "Koko Martono");
+    perpus.tambahBuku("978-333", "Fisika Dasar", "Halliday Resnick");
+    perpus.tambahBuku("978-444", "Pengantar Sistem Operasi", "Stallings");
+    perpus.tambahBuku("978-555", "Clean Code C++", "Robert C. Martin");
+    cout << "------------------------------------\n";
 
-    perpus.tambahBuku("978-623-01", "Struktur Data C++", "Budi Raharjo");
-    perpus.tambahBuku("978-623-02", "Algoritma Pemrograman", "Sukamto");
-    perpus.tambahBuku("978-623-03", "Clean Code", "Robert C. Martin");
-    
-    perpus.tampilkanKoleksi();
+    do {
+        cout << "\n====================================\n";
+        cout << "    SISTEM PERPUSTAKAAN MODERN\n";
+        cout << "====================================\n";
+        cout << "1. Tambah Buku Baru\n";
+        cout << "2. Tampilkan Seluruh Koleksi\n";
+        cout << "3. Hapus Buku (Rusak/Hilang)\n";
+        cout << "4. Keluar\n";
+        cout << "------------------------------------\n";
+        cout << "Pilih menu (1-4): ";
+        cin >> pilihan;
+        
+        cin.ignore(); 
 
-    cout << "Melakukan pembaruan data buku...\n";
-    perpus.perbaruiBuku("978-623-02", "Algoritma Pemrograman (Revisi)", "Sukamto & Rosa");
-    perpus.tampilkanKoleksi();
+        switch (pilihan) {
+            case 1:
+                cout << "\n--- TAMBAH BUKU BARU ---\n";
+                cout << "Masukkan ISBN    : ";
+                getline(cin, inputIsbn);
+                cout << "Masukkan Judul   : ";
+                getline(cin, inputJudul);
+                cout << "Masukkan Penulis : ";
+                getline(cin, inputPenulis);
+                perpus.tambahBuku(inputIsbn, inputJudul, inputPenulis);
+                break;
 
-    cout << "Menghapus buku yang rusak...\n";
-    perpus.hapusBuku("978-623-01");
-    perpus.tampilkanKoleksi();
+            case 2:
+                perpus.tampilkanKoleksi();
+                break;
+
+            case 3:
+                cout << "\n--- HAPUS BUKU ---\n";
+                cout << "Masukkan ISBN buku yang dihapus: ";
+                getline(cin, inputIsbn);
+                perpus.hapusBuku(inputIsbn);
+                break;
+
+            case 4:
+                cout << "\nKeluar dari sistem perpustakaan. Sampai jumpa bro!\n";
+                break;
+
+            default:
+                cout << "\n[ERROR] Pilihan tidak valid. Silakan pilih 1-4.\n";
+        }
+
+    } while (pilihan != 4);
 
     return 0;
 }
