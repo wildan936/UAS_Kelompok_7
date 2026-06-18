@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 
@@ -70,6 +71,22 @@ public:
         cout << "[SUKSES] Buku dengan ISBN " << isbn << " berhasil dihapus dari sistem.\n";
     }
 
+    // Mencari buku berdasarkan judul
+    void cariBuku(string judul) {
+        Buku* temp = head;
+        while (temp != nullptr) {
+            if (temp->judul == judul) {
+                cout << "\n=== Buku Ditemukan ===\n";
+                cout << "ISBN    : " << temp->isbn << "\n";
+                cout << "Judul   : " << temp->judul << "\n";
+                cout << "Penulis : " << temp->penulis << "\n";
+                return;
+            }
+            temp = temp->next;
+        }
+        cout << "\n[INFO] Buku dengan judul \"" << judul << "\" tidak ditemukan.\n";
+    }
+
     void tampilkanKoleksi() {
         if (head == nullptr) {
             cout << "\n--- Koleksi Perpustakaan Kosong ---\n";
@@ -87,68 +104,3 @@ public:
         }
     }
 };
-
-int main() {
-    ManajemenKoleksiBuku perpus;
-    int pilihan;
-    string inputIsbn, inputJudul, inputPenulis;
-
-    cout << "====================================\n";
-    cout << "           KOLEKSI BUKU\n";
-    cout << "====================================\n";
-    perpus.tambahBuku("978-111", "Struktur Data & Algoritma", "Budi Raharjo");
-    perpus.tambahBuku("978-222", "Kalkulus Lanjut", "Koko Martono");
-    perpus.tambahBuku("978-333", "Fisika Dasar", "Halliday Resnick");
-    perpus.tambahBuku("978-444", "Pengantar Sistem Operasi", "Stallings");
-    perpus.tambahBuku("978-555", "Clean Code C++", "Robert C. Martin");
-    cout << "------------------------------------\n";
-
-    do {
-        cout << "\n====================================\n";
-        cout << "    SISTEM PERPUSTAKAAN MODERN\n";
-        cout << "====================================\n";
-        cout << "1. Tambah Buku Baru\n";
-        cout << "2. Tampilkan Seluruh Koleksi\n";
-        cout << "3. Hapus Buku (Rusak/Hilang)\n";
-        cout << "4. Keluar\n";
-        cout << "------------------------------------\n";
-        cout << "Pilih menu (1-4): ";
-        cin >> pilihan;
-        
-        cin.ignore(); 
-
-        switch (pilihan) {
-            case 1:
-                cout << "\n--- TAMBAH BUKU BARU ---\n";
-                cout << "Masukkan ISBN    : ";
-                getline(cin, inputIsbn);
-                cout << "Masukkan Judul   : ";
-                getline(cin, inputJudul);
-                cout << "Masukkan Penulis : ";
-                getline(cin, inputPenulis);
-                perpus.tambahBuku(inputIsbn, inputJudul, inputPenulis);
-                break;
-
-            case 2:
-                perpus.tampilkanKoleksi();
-                break;
-
-            case 3:
-                cout << "\n--- HAPUS BUKU ---\n";
-                cout << "Masukkan ISBN buku yang dihapus: ";
-                getline(cin, inputIsbn);
-                perpus.hapusBuku(inputIsbn);
-                break;
-
-            case 4:
-                cout << "\nKeluar dari sistem perpustakaan. Sampai jumpa bro!\n";
-                break;
-
-            default:
-                cout << "\n[ERROR] Pilihan tidak valid. Silakan pilih 1-4.\n";
-        }
-
-    } while (pilihan != 4);
-
-    return 0;
-}
