@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <queue> 
+
+
 #include "data_disimpan_dikelola.cpp"
 #include "fitur-pencarian-buku.cpp"
 #include "rekomendasi_buku.cpp"
@@ -13,8 +15,15 @@ int main() {
     int pilihan;
     string inputIsbn, inputJudul, inputPenulis;
 
-    
     queue<Transaksi> daftarAntrean; 
+
+   
+    perpus.tambahBuku("978-013-235088-4", "Clean Code: A Handbook of Agile Software Craftsmanship", "Robert C. Martin");
+    perpus.tambahBuku("978-026-203384-8", "Introduction to Algorithms", "Thomas H. Cormen");
+    perpus.tambahBuku("978-013-359414-0", "Computer Networking: A Top-Down Approach", "James Kurose");
+    perpus.tambahBuku("978-013-608620-8", "Database Systems: The Complete Book", "Hector Garcia-Molina");
+    perpus.tambahBuku("978-111-945633-9", "Operating System Concepts", "Abraham Silberschatz");
+    
 
     do {
         cout << "\n====================================\n";
@@ -23,13 +32,20 @@ int main() {
         cout << "1. Tambah Buku Baru\n";
         cout << "2. Tampilkan Seluruh Koleksi\n";
         cout << "3. Hapus Buku (Rusak/Hilang)\n";
-        cout << "4. Cari Buku (berdasarkan Judul)\n";
-        cout << "5. Rekomendasi Buku (judl,ISBN)\n";
-        cout << "6. peminjaman-pengembalian \n";
+        cout << "4. Cari Buku (Berdasarkan Judul)\n";
+        cout << "5. Rekomendasi Buku (Judul/ISBN)\n"; 
+        cout << "6. Peminjaman dan Pengembalian\n";   
         cout << "7. Keluar\n";
         cout << "------------------------------------\n";
         cout << "Pilih menu (1-7): ";
-        cin >> pilihan;
+        
+        
+        if (!(cin >> pilihan)) {
+            cout << "\n[ERROR] Input harus berupa angka!\n";
+            cin.clear(); 
+            cin.ignore(1000, '\n');
+            continue;
+        }
 
         cin.ignore(); 
 
@@ -65,7 +81,6 @@ int main() {
                 break;
 
             case 6:
-                
                 menupeminjaman(perpus, daftarAntrean); 
                 break;
             
