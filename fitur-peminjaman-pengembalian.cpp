@@ -1,5 +1,7 @@
 #include <iostream>
 #include <queue>
+#include <string> // Pastikan string di-include jika pakai std::string
+
 using namespace std;
 
 struct Transaksi {
@@ -9,8 +11,8 @@ struct Transaksi {
     string batasKembali;
 };
 
-void menupeminjaman() {
-    queue<Transaksi> antrean;
+// Tambahkan parameter antrean di sini menggunakan '&'
+void menupeminjaman(ManajemenKoleksiBuku &perpus, queue<Transaksi> &antrean) {
     int pilihan;
 
     do {
@@ -21,7 +23,7 @@ void menupeminjaman() {
         cout << "0. Keluar" << endl;
         cout << "Pilihan : ";
         cin >> pilihan;
-        cin.ignore();
+        cin.ignore(); // Membersihkan sisa newline setelah input angka pilihan
 
         if (pilihan == 1) {
             Transaksi t;
@@ -79,6 +81,4 @@ void menupeminjaman() {
         }
 
     } while (pilihan != 0);
-
-    
 }

@@ -1,8 +1,10 @@
 #include <iostream>
 #include <string>
+#include <queue> 
 #include "data_disimpan_dikelola.cpp"
 #include "fitur-pencarian-buku.cpp"
 #include "rekomendasi_buku.cpp"
+#include "fitur-peminjaman-pengembalian.cpp"
 
 using namespace std;
 
@@ -12,7 +14,7 @@ int main() {
     string inputIsbn, inputJudul, inputPenulis;
 
     
-    
+    queue<Transaksi> daftarAntrean; 
 
     do {
         cout << "\n====================================\n";
@@ -23,12 +25,13 @@ int main() {
         cout << "3. Hapus Buku (Rusak/Hilang)\n";
         cout << "4. Cari Buku (berdasarkan Judul)\n";
         cout << "5. Rekomendasi Buku (judl,ISBN)\n";
-        cout << "6. Keluar\n";
+        cout << "6. peminjaman-pengembalian \n";
+        cout << "7. Keluar\n";
         cout << "------------------------------------\n";
-        cout << "Pilih menu (1-6): ";
+        cout << "Pilih menu (1-7): ";
         cin >> pilihan;
 
-        cin.ignore();
+        cin.ignore(); 
 
         switch (pilihan) {
             case 1:
@@ -62,13 +65,20 @@ int main() {
                 break;
 
             case 6:
-                cout <<  "\nKeluar dari sistem perpustakaan. Sampai jumpa bro!\n";
+                
+                menupeminjaman(perpus, daftarAntrean); 
+                break;
+            
+            case 7:
+                cout << "\nKeluar dari sistem perpustakaan. Sampai jumpa bro!\n";
+                break; 
 
             default:
-                cout << "\n[ERROR] Pilihan tidak valid. Silakan pilih 1-5.\n";
+                cout << "\n[ERROR] Pilihan tidak valid. Silakan pilih 1-7.\n";
+                break;
         }
 
-    } while (pilihan != 5);
+    } while (pilihan != 7); 
 
     return 0;
 }
