@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include "data_disimpan_dikelola.cpp"
+
+#include "data_disimpan_dikelola.cpp" 
 
 using namespace std;
 
@@ -16,10 +17,11 @@ void menuRekomendasiBuku(ManajemenKoleksiBuku& perpus) {
     cout << "\n--- REKOMENDASI BUKU UNTUKMU ---\n";
     cout << "Masukkan judul atau penulis yang kamu suka\n";
     cout << "(Contoh: Judul,Penulis): ";
+    
+    // cin.ignore() ditiadakan di sini agar tidak membuat bug "karakter hilang"
     getline(cin, kataKunci);
 
-    cout << "\n[REKOMENDASI] Berdasarkan minatmu pada \""
-         << kataKunci << "\":\n";
+    cout << "\n[REKOMENDASI] Berdasarkan minatmu pada \"" << kataKunci << "\":\n";
     cout << "---------------------------------------------------------\n";
 
     bool ditemukan = perpus.rekomendasiBerdasarkanKataKunci(kataKunci);

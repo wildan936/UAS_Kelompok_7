@@ -20,7 +20,7 @@ public:
         head = nullptr;
     }
 
-    // 1. Menambah buku baru (Insert at Tail)
+    
     void tambahBuku(string isbn, string judul, string penulis) {
         Buku* bukuBaru = new Buku();
         bukuBaru->isbn = isbn;
@@ -37,7 +37,7 @@ public:
             }
             temp->next = bukuBaru;
         }
-        cout << "Buku " << judul << "\n";
+        cout << "[SUKSES] Berhasil menambahkan buku: " << judul << "\n";
     }
 
     void hapusBuku(string isbn) {
@@ -71,7 +71,7 @@ public:
         cout << "[SUKSES] Buku dengan ISBN " << isbn << " berhasil dihapus dari sistem.\n";
     }
 
-    // Mencari buku berdasarkan judul
+    
     void cariBuku(string judul) {
         Buku* temp = head;
         while (temp != nullptr) {
@@ -102,5 +102,29 @@ public:
                 << "----------------------------------------\n";
             temp = temp->next;
         }
+    }
+
+   
+    bool rekomendasiBerdasarkanKataKunci(string kataKunci) {
+        if (head == nullptr) {
+            return false;
+        }
+
+        Buku* temp = head;
+        bool ditemukan = false;
+
+        while (temp != nullptr) {
+            
+            if (temp->judul.find(kataKunci) != string::npos || temp->penulis.find(kataKunci) != string::npos) {
+                cout << "ISBN    : " << temp->isbn << "\n";
+                cout << "Judul   : " << temp->judul << "\n";
+                cout << "Penulis : " << temp->penulis << "\n";
+                cout << "----------------------------------------\n";
+                ditemukan = true;
+            }
+            temp = temp->next;
+        }
+
+        return ditemukan;
     }
 };

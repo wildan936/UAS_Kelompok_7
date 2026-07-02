@@ -2,6 +2,7 @@
 #include <string>
 #include "data_disimpan_dikelola.cpp"
 #include "fitur-pencarian-buku.cpp"
+#include "rekomendasi_buku.cpp"
 
 using namespace std;
 
@@ -21,9 +22,10 @@ int main() {
         cout << "2. Tampilkan Seluruh Koleksi\n";
         cout << "3. Hapus Buku (Rusak/Hilang)\n";
         cout << "4. Cari Buku (berdasarkan Judul)\n";
-        cout << "5. Keluar\n";
+        cout << "5. Rekomendasi Buku (judl,ISBN)\n";
+        cout << "6. Keluar\n";
         cout << "------------------------------------\n";
-        cout << "Pilih menu (1-5): ";
+        cout << "Pilih menu (1-6): ";
         cin >> pilihan;
 
         cin.ignore();
@@ -56,8 +58,11 @@ int main() {
                 break;
 
             case 5:
-                cout << "\nKeluar dari sistem perpustakaan. Sampai jumpa bro!\n";
+                menuRekomendasiBuku(perpus);
                 break;
+
+            case 6:
+                cout <<  "\nKeluar dari sistem perpustakaan. Sampai jumpa bro!\n";
 
             default:
                 cout << "\n[ERROR] Pilihan tidak valid. Silakan pilih 1-5.\n";
